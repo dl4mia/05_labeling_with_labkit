@@ -6,6 +6,7 @@
 In this tutorial, we will learn how to manually label images with labkit and how to leverage Labkit's segmentation algorithm to accelerate this labeling.
 
 1 - [Manual image labeling with Labkit](https://tinyurl.com/ycyac5rm)
+
 2 - [Accelerated image labeling with Labkit](https://tinyurl.com/2p852srr)
 
 **[Return to the Course's main page](https://tinyurl.com/7z8jxx2w)**
