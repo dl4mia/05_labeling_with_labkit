@@ -1,4 +1,4 @@
-# Accelerated image labeling with Labkit
+# DL4MIA 2023: 05b - Accelerated image labeling with Labkit
 
 Paper: [https://www.frontiersin.org/articles/10.3389/fcomp.2022.777728/full](https://www.frontiersin.org/articles/10.3389/fcomp.2022.777728/full)
 
