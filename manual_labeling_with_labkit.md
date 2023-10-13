@@ -1,6 +1,4 @@
-# DL4MIA 2023: 05a - Manual image labeling with Labkit
-
-**[Return to the Welcome page](https://tinyurl.com/33y2b2hk)**
+# Manual image labeling with Labkit
 
 Paper: [https://www.frontiersin.org/articles/10.3389/fcomp.2022.777728/full](https://www.frontiersin.org/articles/10.3389/fcomp.2022.777728/full)
 
@@ -16,7 +14,10 @@ I2K talk with a quick demo: [https://youtu.be/UZjZtmm7adU](https://youtu.be/UZjZ
 ## Prerequisites
 
 - Basic understanding of Fiji
-- 
+- Segmentation types
+
+    Semantic vs instance segmentation
+
 
 # **Exercise #0 Data download & Installation**
 
@@ -34,7 +35,7 @@ In the pop up menu activate ***Labkit*** - ([https://sites.imagej.net/Labkit/](h
 
 [https://lh5.googleusercontent.com/x4Io3Odq_IphqwjOKEpmaO5eRxMjBm9-rlcylU73shO3-iN55EXo1FUy8o7Z_C3UqE8s98p-0WwSVfrhUCAI5kpUdbHqwtjl77c09PvVX4777-aFAXMzns16Y85CQGejucpsfkNz1PNInXirsYUrtqE](https://lh5.googleusercontent.com/x4Io3Odq_IphqwjOKEpmaO5eRxMjBm9-rlcylU73shO3-iN55EXo1FUy8o7Z_C3UqE8s98p-0WwSVfrhUCAI5kpUdbHqwtjl77c09PvVX4777-aFAXMzns16Y85CQGejucpsfkNz1PNInXirsYUrtqE)
 
-Install dependencies for GPU acceleration (if a good GPU is available at your machine - which is the case for the VDIs):
+Install dependencies for GPU acceleration (if a good GPU is available at your machine):
 
 Activate ***clij*** and ***clij2*** update sites
 
@@ -76,7 +77,7 @@ Adjust the contrast by pressing: ***auto contrast***.
 
 [https://lh5.googleusercontent.com/Jy-lutT0eTP2Nb9qQw1XY8URE2iiOHbWg08tFfjHPCVq-24lu_h4_v8SaRXiCCzWm8alo3Q0Crnqohmo-l7DO0ehg6nxlQKUW9Rp_CetLKMyNj2n6_YMkTNcG-29NgEcDeMQPbRf2_BsKbEkJB6Go_w](https://lh5.googleusercontent.com/Jy-lutT0eTP2Nb9qQw1XY8URE2iiOHbWg08tFfjHPCVq-24lu_h4_v8SaRXiCCzWm8alo3Q0Crnqohmo-l7DO0ehg6nxlQKUW9Rp_CetLKMyNj2n6_YMkTNcG-29NgEcDeMQPbRf2_BsKbEkJB6Go_w)
 
-Which consists of the BigDataViewer interface (1). The Labeling classes (2). The labeling tool box (3) as well as the pixel classifier setting (4). We will introduce these now in more detail. 
+Which consists of the BigDataViewer interface (1). The Labeling classes (2). The labeling tool box (3) as well as the pixel classifier setting (4). We will introduce these now in more detail.
 
 ## **(1) The BigDataViewer interface.**
 
@@ -112,7 +113,7 @@ Pressing the arrow cross activates the interaction mode in BDV so you can naviga
 
 [https://lh5.googleusercontent.com/cyMJM4riA2xvNgj5hVVvGINrCN9F0-O2XiQPn15xe-DPH0re0OlIiWcb9LBeFq1LUhYy4bGCIWinR3T3tTUWVcz3bA6HFVIc9zE5iOnmeSSzXe0aL2enBzxqY5w9VJTBuJTlQJGdLi-8VNvCBXKEs2w](https://lh5.googleusercontent.com/cyMJM4riA2xvNgj5hVVvGINrCN9F0-O2XiQPn15xe-DPH0re0OlIiWcb9LBeFq1LUhYy4bGCIWinR3T3tTUWVcz3bA6HFVIc9zE5iOnmeSSzXe0aL2enBzxqY5w9VJTBuJTlQJGdLi-8VNvCBXKEs2w)
 
-You can select the pencil (**Ctrl-D**) for labeling the images. Change the brush size on the right. You can fill a closed (!) outline using the fill function (**Ctrl-F**). You can use the eraser (**Ctrl-E**) to modify the labels. Finally you can delete entire connected components (**Ctrl-R**).
+You can select the pencil (**D**) for labeling the images. Change the brush size on the right. You can fill a closed (!) outline using the fill function (**F**). You can use the eraser (**E**) to modify the labels. Finally you can delete entire connected components (**R**).
 
 [https://lh4.googleusercontent.com/NuA0vtD1T1gFwFG-WW6w_3A1_S8V5EOeiN4MfUthhvOX9uGi3S7bFd-eX5uWtIf3WkSHkS0bYg1PMuRJYtBCcNzV--FfAAUKYXE_8L6rWh-OLnDheu3llOAO1J56s2FYsfXPm4LKEU3xX586Npf9Rzs](https://lh4.googleusercontent.com/NuA0vtD1T1gFwFG-WW6w_3A1_S8V5EOeiN4MfUthhvOX9uGi3S7bFd-eX5uWtIf3WkSHkS0bYg1PMuRJYtBCcNzV--FfAAUKYXE_8L6rWh-OLnDheu3llOAO1J56s2FYsfXPm4LKEU3xX586Npf9Rzs)
 
@@ -124,7 +125,7 @@ With the 3D-box it is in 3D mode:
 
 [https://lh5.googleusercontent.com/SUicCzhxVAN6Yp8SxPt5Y164J7MvX4igbS7UB1en4uy_yss6I3_HfmuEarX8ubFjoZPDvNMwJXqnc-BN9rNhkx9t4txiSgacfT0RoqyYrpJ4UMTHMXtDDjHdmw2zrEcYhXv59v1vebgcIjUhXJQd3RE](https://lh5.googleusercontent.com/SUicCzhxVAN6Yp8SxPt5Y164J7MvX4igbS7UB1en4uy_yss6I3_HfmuEarX8ubFjoZPDvNMwJXqnc-BN9rNhkx9t4txiSgacfT0RoqyYrpJ4UMTHMXtDDjHdmw2zrEcYhXv59v1vebgcIjUhXJQd3RE)
 
-With the slice-box visible Labkit is in the *slice-by-slice* mode: 
+With the slice-box visible Labkit is in the *slice-by-slice* mode:
 
 [https://lh6.googleusercontent.com/clvq1Fhdo7lrfSDB_pUT1N8JA-s-He8tcTb4IbwQrHrJBlz9KX3BSygQOVX9Und0lN6Hws1X5r-0ak11qytYPKZjugr24ZGf88zgiSD34MgRGAPb51CHFNJcvNdjHh-Q5ahjFHsM_3hYkyUClHd-7SE](https://lh6.googleusercontent.com/clvq1Fhdo7lrfSDB_pUT1N8JA-s-He8tcTb4IbwQrHrJBlz9KX3BSygQOVX9Und0lN6Hws1X5r-0ak11qytYPKZjugr24ZGf88zgiSD34MgRGAPb51CHFNJcvNdjHh-Q5ahjFHsM_3hYkyUClHd-7SE)
 
@@ -144,29 +145,29 @@ Here you can add pixel classifiers by pressing on the ***Labkit Pixel Classifica
 
 For creating the dense manual labels you need to first activate the *slice-by-slice* labelling mode. Press the BDV mode button by pressing on the 3D box:
 
-![Slice.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/Slice.png)
+![Slice.png](manual_labeling_with_labkit/Slice.png)
 
 The *slice-by-slice* labelling mode will be activated. The button will change to the slice box:
 
-![SliceMode.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/SliceMode.png)
+![SliceMode.png](manual_labeling_with_labkit/SliceMode.png)
 
 The image volume will be locked into an *xy* visualization. Like a typical stack in Fiji. You can scroll through the slices using the mouse wheel. Or the slider on the right:
 
-![SliceMode.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/SliceMode%201.png)
+![SliceMode.png](manual_labeling_with_labkit/SliceMode%201.png)
 
 Labkit uses the following data labeling tools:
 
-![Figure_curation.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/Figure_curation.png)
+![Figure_curation.png](manual_labeling_with_labkit/Figure_curation.png)
 
 For drawing on the canvas first select the pencil (D). For drawing dense labels you would like to draw with a larger brush (this is in contrast to what you will do with the labeling for the automatic segmentation later). The brush size can be changed with the slider to the right. For dense labels the best strategy is to first draw the outline of the object. 
 
-![dense1.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/dense1.png)
+![dense1.png](manual_labeling_with_labkit/dense1.png)
 
-Then you can fill the remaining hole using the fill function (F). 
+Then you can fill the remaining hole using the fill function (F).
 
-![dense2.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/dense2.png)
+![dense2.png](manual_labeling_with_labkit/dense2.png)
 
-The objects can be adjusted using the eraser (E). The eraser size is also adjusted with the brush size. You can easily delete entire connected components with the delete blob function (R). 
+The objects can be adjusted using the eraser (E). The eraser size is also adjusted with the brush size. You can easily delete entire connected components with the delete blob function (R).
 
 Draw the labels on the BDV canvas. Go through all slices and label all relevant parts. You can verify if all slices have been labeled by activating the 3D interaction mode again:
 
@@ -174,21 +175,21 @@ Draw the labels on the BDV canvas. Go through all slices and label all relevant 
 
 You can then rotate the image volume (***Shift + x or shift + y***). A complete dense labelled volume looks like this:
 
-![Complete.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/Complete.png)
+![Complete.png](manual_labeling_with_labkit/Complete.png)
 
 Whereas with missing slices it will look like this:
 
-![Missing.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/Missing.png)
+![Missing.png](manual_labeling_with_labkit/Missing.png)
 
 ## Semantic vs instance segmentation
 
-An important aspect is to understand the difference between instance and semantic segmentation. A semantic segmentation will not differentiate between individual objects within one class. Thus, even if you manually label individual cell separately they will all be labeled with the same label identity. An instance segmentation will differentiate individual objects with a separate label. 
+An important aspect is to understand the difference between instance and semantic segmentation. A semantic segmentation will not differentiate between individual objects within one class. Thus, even if you manually label individual cell separately they will all be labeled with the same label identity. An instance segmentation will differentiate individual objects with a separate label.
 
-By default Labkit is setup to primarily support semantic segmentation, especially in the automatic segmentation mode. You can label individual objects by using one class and then use a different tool to generate label mask afterwards. However, in this case you need to make sure the labeled objects are **well separated** (could be hard in 3D). Afterwards one could use other tools to generate individual labels for the well separated labeled objects. 
+By default Labkit is setup to primarily support semantic segmentation, especially in the automatic segmentation mode. You can label individual objects by using one class and then use a different tool to generate label mask afterwards. However, in this case you need to make sure the labeled objects are **well separated** (could be hard in 3D). Afterwards one could use other tools to generate individual labels for the well separated labeled objects.
 
 The alternative to this is to use per object one class. This is also supported in Labkit but might be a bit awkward to use.
 
-![instances.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/instances.png)
+![instances.png](manual_labeling_with_labkit/instances.png)
 
 # **Exercise #3 Save labeling**
 
@@ -204,7 +205,7 @@ You can save the labels also as a new image by selecting the correct labeling cl
 
 ***Labkit > Labeling > Export Selected Label as Bitmap***
 
-The image volume exported shows for the label class as binary mask with 1 being the exported label. 
+The image volume exported shows for the label class as binary mask with 1 being the exported label.
 
 [https://lh6.googleusercontent.com/lu2YMDfcYBUDFWpOlgk_9luFJH2LuhId765HCcJ4xonS4wFLBMr4yXU2vAyGqZNr17_CHiZuealkdyktUd79qLYHkuQpPjZyeQxBPafYcVjh91AMINozC2ixFtrk8eWrpzfzadx4rEKEsh0lKkT0azc](https://lh6.googleusercontent.com/lu2YMDfcYBUDFWpOlgk_9luFJH2LuhId765HCcJ4xonS4wFLBMr4yXU2vAyGqZNr17_CHiZuealkdyktUd79qLYHkuQpPjZyeQxBPafYcVjh91AMINozC2ixFtrk8eWrpzfzadx4rEKEsh0lKkT0azc)
 
@@ -220,7 +221,7 @@ Then press ***Apply.*** A new window will pop up with ***Convert Stack to Binary
 
 [https://lh3.googleusercontent.com/AaMouc_3QjMRGWrpy5T0acnCfth8Ulrmw1OSDhkXcrp7Q4f6kH3_3Qme6-ghmGA99hMVwD7_58tmMonxHC7bggW_pjEjXieddH7tAFqo9wZZ8aifi7LxCyEUDKyZS6tIn16VAtMna0_zI0YhkUHygbs](https://lh3.googleusercontent.com/AaMouc_3QjMRGWrpy5T0acnCfth8Ulrmw1OSDhkXcrp7Q4f6kH3_3Qme6-ghmGA99hMVwD7_58tmMonxHC7bggW_pjEjXieddH7tAFqo9wZZ8aifi7LxCyEUDKyZS6tIn16VAtMna0_zI0YhkUHygbs)
 
-You can then further process the binary mask in Fiji. For example you could create an instance segmentation. 
+You can then further process the binary mask in Fiji. For example you could create an instance segmentation.
 
 ### Turning the binary mask into an instance segmentation
 
@@ -230,13 +231,13 @@ You need to install MorphoLibJ for this: [https://imagej.net/plugins/morpholibj#
 
 In MorphoLibJ apply then on a binary mask the connected component labeling:
 
-***Plugins > MorphoLibJ > Binary Images > Connected Components labeling*** 
+***Plugins > MorphoLibJ > Binary Images > Connected Components labeling***
 
-This will give each connected component a different grey value. 
+This will give each connected component a different grey value.
 
-![cellMask.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/cellMask.png)
+![cellMask.png](manual_labeling_with_labkit/cellMask.png)
 
-![cellMask-lbl.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/cellMask-lbl.png)
+![cellMask-lbl.png](manual_labeling_with_labkit/cellMask-lbl.png)
 
 If your labels should have pretty colors instead of the grey values you can use:
 
@@ -244,4 +245,4 @@ If your labels should have pretty colors instead of the grey values you can use:
 
 **NOTE:** make sure you set the background color to your liking
 
-![cellMask-lbl-rgb.png](DL4MIA%202023%2005a%20-%20Manual%20image%20labeling%20with%20Labki%20f87e922394194ef9907a25913d109193/cellMask-lbl-rgb.png)
+![cellMask-lbl-rgb.png](manual_labeling_with_labkit/cellMask-lbl-rgb.png)
